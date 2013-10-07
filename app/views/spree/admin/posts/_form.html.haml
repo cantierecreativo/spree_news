@@ -3,6 +3,10 @@
 %p
 = f.text_field :title
 %p
+= f.label :image, Spree.t(:image)
+%p
+= f.file_field :image
+%p
 = f.label :description, Spree::Post.human_attribute_name(:description)
 %p
 = f.text_area :description
@@ -10,4 +14,3 @@
 = f.label :published, Spree::Post.human_attribute_name(:published)
 %p
 = f.check_box :published
-

@@ -5,6 +5,8 @@
 %h4= t(:description)
 = @post.description
 
+%h4 Immagine
+= image_tag @post.image(:original)
 %p
 = link_to_edit @post, :class => 'edit_slide'
 = t(:or)

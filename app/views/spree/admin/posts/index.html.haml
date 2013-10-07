@@ -7,10 +7,12 @@
     %th= Spree::Post.human_attribute_name(:title)
     %th
     %th
+    %th
   %tbody
     - @posts.each do |post|
       %tr
         %td= link_to post.title, object_url(post)
+        %td= image_tag post.image(:mini)
         %td= link_to_edit post
         %td= link_to_delete post
 
