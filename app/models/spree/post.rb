@@ -8,11 +8,11 @@ class Spree::Post < ActiveRecord::Base
   scope :latest, order("created_at DESC").limit(2)
 
   has_attached_file :image,
-    styles: { big: '256x256>', normal: '128x128>', mini: '32x32>' },
-    default_style: :normal,
-    url: '/spree/posts/:id/:style/:basename.:extension',
-    path: ':rails_root/public/spree/posts/:id/:style/:basename.:extension',
-    default_url: '/assets/default_post.png'
+    styles: { news: '200x200>', mini: '32x32>' },
+    default_style: :news,
+    url: '/spree/news/:id/:style/:basename.:extension',
+    path: ':rails_root/public/spree/news/:id/:style/:basename.:extension',
+    default_url: '/assets/default_news.png'
 
   include Spree::Core::S3Support
   supports_s3 :image
