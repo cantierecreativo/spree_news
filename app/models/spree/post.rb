@@ -6,8 +6,8 @@ class Spree::Post < ActiveRecord::Base
 
   attr_accessible :title, :description, :published, :image
 
-  scope :published, lambda { where(:published => true) }
-  scope :latest, order("created_at DESC").limit(2)
+  scope :published, -> { where(:published => true) }
+  scope :latest, -> { |count=3| order("created_at DESC").limit(count) }
 
   has_attached_file :image,
     styles: { news: '200x200>', mini: '48x48>' },
