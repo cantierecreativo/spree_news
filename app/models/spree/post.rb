@@ -9,11 +9,11 @@ class Spree::Post < ActiveRecord::Base
   scope :published, lambda { where(:published => true) }
   scope :latest, ->(count=3) { order("created_at DESC").limit(count) }
   has_attached_file :image,
-    styles: ActiveSupport::JSON.decode(Spree::Config[:news_styles]).symbolize_keys!,
-    default_style: Spree::Config[:news_default_style],
-    url: Spree::Config[:news_url],
-    default_url: Spree::Config[:news_default_url],
-    path: Spree::Config[:news_path],
+    styles: ActiveSupport::JSON.decode(SpreeNews::Config[:news_styles]).symbolize_keys!,
+    default_style: SpreeNews::Config[:news_default_style],
+    url: SpreeNews::Config[:news_url],
+    default_url: SpreeNews::Config[:news_default_url],
+    path: SpreeNews::Config[:news_path],
     convert_options: { all: '-strip -auto-orient' }
 
   include Spree::Core::S3Support
