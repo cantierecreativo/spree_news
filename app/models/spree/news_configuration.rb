@@ -1,4 +1,4 @@
-Spree::AppConfiguration.class_eval do
+class Spree::NewsConfiguration < Spree::Preference::Configuration
   preference :news_default_url, :string, :default => '/spree/news/:id/:style/:basename.:extension'
   preference :news_path, :string, :default => ':rails_root/public/spree/news/:id/:style/:basename.:extension'
   preference :news_url, :string, :default => '/spree/news/:id/:style/:basename.:extension'

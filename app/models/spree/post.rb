@@ -6,23 +6,16 @@ class Spree::Post < ActiveRecord::Base
 
   attr_accessible :title, :description, :published, :image
 
-  scope :published, -> { where(:published => true) }
-  scope :latest, -> { |count=3| order("created_at DESC").limit(count) }
-
+  scope :published, lambda { where(:published => true) }
+  scope :latest, ->(count=3) { order("created_at DESC").limit(count) }
   has_attached_file :image,
-    styles: { news: '200x200>', mini: '48x48>' },
-    default_style: :news,
-    url: "/spree/news/:id/:style/:basename.:extension",
-    path: ":rails_root/public/spree/news/:id/:style/:basename.:extension",
+    styles: ActiveSupport::JSON.decode(Spree::Config[:news_styles]).symbolize_keys!,
+    default_style: Spree::Config[:news_default_style],
+    url: Spree::Config[:news_url],
+    default_url: Spree::Config[:news_default_url],
+    path: Spree::Config[:news_path],
     convert_options: { all: '-strip -auto-orient' }
 
   include Spree::Core::S3Support
   supports_s3 :image
-
-  Spree::Post.attachment_definitions[:image][:styles] = ActiveSupport::JSON.decode(Spree::Config[:news_styles]).symbolize_keys!
-  Spree::Post.attachment_definitions[:image][:path] = Spree::Config[:news_path]
-  Spree::Post.attachment_definitions[:image][:url] = Spree::Config[:news_url]
-  Spree::Post.attachment_definitions[:image][:default_url] = Spree::Config[:news_default_url]
-  Spree::Post.attachment_definitions[:image][:default_style] = Spree::Config[:news_default_style].to_sym
-
 end
